@@ -1,0 +1,13 @@
+{
+    "name": "Home",
+    "alias": "home",
+    "description": "网站前端展示",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Home\\Providers\\HomeServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use phpDocumentor\Reflection\Types\False_;
 
-class UsersController extends BaiscController
+class EmailController extends BaiscController
 {
     private $service;
 
-    public function __construct(UsersServices $usersServices)
+    /*public function __construct(UsersServices $usersServices)
     {
         $this->service = $usersServices;
-    }
+    }*/
 
     /**
      * 列表展示页

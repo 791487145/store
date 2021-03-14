@@ -16,6 +16,7 @@
         "laravel/framework": "^7.29",
         "laravel/tinker": "^2.5",
         "lyue/laravel-model": "^1.0",
+        "nwidart/laravel-modules": "^8.2",
         "reliese/laravel": "^0.0.19"
     },
     "require-dev": {
