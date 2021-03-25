@@ -22,5 +22,6 @@ Route::get('/welcome','IndexController@welcome');
 
 
 Route::resource('users', 'UsersController');
+Route::get('user/list','UsersController@userLists');
 
 Route::resource('email', 'UsersController');

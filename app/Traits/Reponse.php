@@ -11,7 +11,7 @@ namespace App\Traits;
 
 trait Reponse
 {
-    public $code = 200;
+    public $code = 0;
     public $error = 201;
 
     /**
@@ -22,6 +22,27 @@ trait Reponse
     public  function success($msg = '')
     {
         return response()->json(['msg' => $msg,'code'=>$this->code]);
+    }
+
+    /**
+     * 成功时带参数返回值
+     * @param array $data
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public  function success_data(array $data)
+    {
+        return response()->json(['msg' => '操作成功','code'=>$this->code,'data'=>$data]);
+    }
+
+    /**
+     * 成功时带参数返回值（分页）
+     * @param array $data
+     * @param int $count
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public  function success_page(array $data,int $count)
+    {
+        return response()->json(['msg' => '操作成功','code'=>$this->code,'data'=>$data,'count'=>$count]);
     }
 
     /**

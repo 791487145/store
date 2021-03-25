@@ -1,9 +1,9 @@
 {
     "name": "Home",
     "alias": "home",
-    "description": "网站前端展示",
+    "description": "",
     "keywords": [],
-    "priority": 0,
+    "order": 0,
     "providers": [
         "Modules\\Home\\Providers\\HomeServiceProvider"
     ],

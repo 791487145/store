@@ -44,6 +44,11 @@ class User extends Model
 		'email_verified_at'
 	];
 
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s'
+    ];
+
 	protected $hidden = [
 		'password',
 		'remember_token'

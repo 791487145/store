@@ -41,13 +41,19 @@ class UsersController extends BaiscController
      * @param UsersRequest $usersRequest
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request,UsersRequest $usersRequest)
+    public function store(UsersRequest $request)
     {
         $param = $request->all('data');
         $data = $param['data'];
         unset($data['pass']);
         $this->service->userCreate($data);
         return $this->success('创建成功');
+    }
+
+    public function userLists(Request $request)
+    {
+        [$user , $count] = $this->service->getUserLists();
+        return $this->success_page($user,$count);
     }
 
 }

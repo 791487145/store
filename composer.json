@@ -13,11 +13,14 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3.1|^7.0.1",
+        "kitloong/laravel-migrations-generator": "^4.4",
         "laravel/framework": "^7.29",
         "laravel/tinker": "^2.5",
         "lyue/laravel-model": "^1.0",
-        "nwidart/laravel-modules": "^8.2",
-        "reliese/laravel": "^0.0.19"
+        "nwidart/laravel-modules": "7.2.0",
+        "reliese/laravel": "^0.0.19",
+        "spatie/laravel-backup": "^6.11",
+        "spatie/laravel-permission": "^4.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.8",
@@ -39,7 +42,8 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Modules\\": "Modules/"
         },
         "classmap": [
             "database/seeds",
