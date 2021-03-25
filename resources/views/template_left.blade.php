@@ -67,6 +67,24 @@
             </li>
             <li>
                 <a href="javascript:;">
+                    <i class="iconfont left-nav-li" lay-tips="邮件管理">&#xe723;</i>
+                    <cite>邮件管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i></a>
+                <ul class="sub-menu">
+                    <li>
+                        <a onclick="xadmin.add_tab('邮件列表','order-list.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>邮件列表</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('邮件日志','order-list1.html')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>邮件日志/cite></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
                     <i class="iconfont left-nav-li" lay-tips="分类管理">&#xe723;</i>
                     <cite>分类管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>

@@ -21,8 +21,11 @@ class UsersController extends BaiscController
      * 列表展示页
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
+        if($request->is('ajax')){
+
+        }
         return view('users/user_list');
     }
 
