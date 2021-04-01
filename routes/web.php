@@ -24,4 +24,7 @@ Route::get('/welcome','IndexController@welcome');
 Route::resource('users', 'UsersController');
 Route::get('user/list','UsersController@userLists');
 
+Route::resource('menu', 'MenuController');
+Route::get('menu/list','MenuController@menuLists');
+
 Route::resource('email', 'UsersController');
