@@ -22,9 +22,6 @@ class MenuController extends BaiscController
      */
     public function index(Request $request)
     {
-        if($request->is('ajax')){
-
-        }
         return view('menu/menu_list');
     }
 
@@ -36,6 +33,11 @@ class MenuController extends BaiscController
     {
         dd($this->service->getMenuRoot());
         return view('menu/menu_add');
+    }
+
+    public function show()
+    {
+        dd(342);
     }
 
     /**
@@ -55,8 +57,7 @@ class MenuController extends BaiscController
 
     public function menuLists(Request $request)
     {
-        /*[$user , $count] = $this->service->getUserLists();
-        return $this->success_page($user,$count);*/
+        return $this->success_data($this->service->getMenuRoot()->toArray());
     }
 
 }

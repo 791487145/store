@@ -2,17 +2,41 @@
 
 @section('contend')
 @include('template_navi')
+
+
+
     <div class="layui-fluid">
+
         <div class="layui-row layui-col-space15">
+            <div class="demoTable">
+                <form class="layui-form layui-col-space5">
+                    <div class="layui-inline layui-show-xs-block">
+                        <input class="layui-input"  autocomplete="off" placeholder="用户id" name="start" id="start">
+                    </div>
+                    <div class="layui-inline layui-show-xs-block">
+                        <input class="layui-input"  autocomplete="off" placeholder="用户手机号" name="end" id="end">
+                    </div>
+                    <div class="layui-inline layui-show-xs-block">
+                        <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                    </div>
+                    <button class="layui-btn" data-type="reload">搜索</button>
+                </form>
+            </div>
+
+            <a href=""><button type="button" class="layui-btn">添加</button></a>
+
             <div class="layui-col-md12">
                 <div class="layui-card">
-
-                    <table class="layui-hide" id="demo"></table>
-
+                    <table class="layui-hide" id="demo" lay-filter="test"></table>
                 </div>
             </div>
         </div>
     </div>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
 @endsection
 @section('javascript')
     <script>
@@ -39,7 +63,6 @@
                     ,groups: 1 //只显示 1 个连续页码
                     ,first: false //不显示首页
                     ,last: false //不显示尾页
-
                 }
                 ,cols: [[
                     {field:'id', width:80, title: 'ID', sort: true}
@@ -47,8 +70,51 @@
                     ,{field:'mobile', width:120, title: '手机号', sort: true}
                     ,{field:'email', width:120, title: '邮箱'}
                     ,{field:'created_at', title: '创建时间', width: '30%'} //minWidth：局部定义当前单元格的最小宽度，layui 2.2.1 新增
+                    ,{fixed: 'right', title:'操作', toolbar: '#barDemo'}
                 ]]
             });
+
+            //监听工具条
+            table.on('tool(test)', function(obj){
+                var data = obj.data;
+                console.log(obj);
+                if(obj.event === 'detail'){
+                    layer.msg('ID：'+ data.id + ' 的查看操作');
+                } else if(obj.event === 'del'){
+                    layer.confirm('真的删除行么', function(index){
+                        obj.del();
+                        layer.close(index);
+                    });
+                } else if(obj.event === 'edit') {
+                    console.log(data);
+                    xadmin.open('编辑', "users/"+data.id+"/edit");
+                }
+            });
+
+            var $ = layui.$, active = {
+                reload: function(){
+                    var demoReload = $('#demoReload');
+
+                    //执行重载
+                    table.reload('testReload', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                        ,where: {
+                            key: {
+                                id: demoReload.val()
+                            }
+                        }
+                    });
+                }
+            };
+
+            $('.demoTable .layui-btn').on('click', function(){
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+
+
         });
 
 

@@ -16,7 +16,7 @@
                                 <i class="layui-icon">&#xe615;</i>
                             </button>
                         </div>
-                       <a href=""><button class="layui-btn layui-btn-warm" data-type="getCheckData">添加</button></a>
+                       <a href="{{}}"><button class="layui-btn layui-btn-warm" data-type="getCheckData">添加</button></a>
                     </form>
                 </div>
 
@@ -43,7 +43,6 @@
                         "code": res.code, //解析接口状态
                         "msg": res.msg, //解析提示文本
                         "data": res.data, //解析数据列表
-                        "count": res.count //解析数据列表
                     };
                 }
                 ,cols: [[

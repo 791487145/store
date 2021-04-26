@@ -126,7 +126,7 @@
                             <cite>角色管理</cite></a>
                     </li>
                     <li>
-                        <a onclick="xadmin.add_tab('菜单管理','{{url('menu')}}')">
+                        <a onclick="xadmin.add_tab('菜单管理','{{url('menus')}}')">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>菜单管理</cite></a>
                     </li>
