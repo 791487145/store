@@ -17,27 +17,15 @@ class MenuServices extends BaseServices
         return Menu::whereIsRoot()->get();
     }
     /**
-     * 用户创建
+     * 菜单创建
      * @param $data
      * @return User|\Illuminate\Database\Eloquent\Model
      */
-    public function userCreate($data)
+    public function menuCreate($data)
     {
-        $data['password'] =  Crypt::encryptString($data['password']);
-        return User::create($data);
+
+
     }
 
-    /**
-     * 获取用户列表
-     * @return array
-     */
-    public function getUserLists()
-    {
-        [$page , $limit] = $this->getPage();
 
-        $count = User::query()->count();
-        $user = User::query()->forPage($page,$limit)->get()->toArray();
-
-        return [$user,$count];
-    }
 }

@@ -3,18 +3,16 @@
 @section('contend')
 @include('template_navi')
 
-
-
     <div class="layui-fluid">
 
         <div class="layui-row layui-col-space15">
             <div class="demoTable">
                 <form class="layui-form layui-col-space5">
                     <div class="layui-inline layui-show-xs-block">
-                        <input class="layui-input"  autocomplete="off" placeholder="用户id" name="start" id="start">
+                        <input class="layui-input"  autocomplete="off" placeholder="用户id" name="user_id" id="user_id">
                     </div>
                     <div class="layui-inline layui-show-xs-block">
-                        <input class="layui-input"  autocomplete="off" placeholder="用户手机号" name="end" id="end">
+                        <input class="layui-input"  autocomplete="off" placeholder="用户手机号" name="mobile" id="mobile">
                     </div>
                     <div class="layui-inline layui-show-xs-block">
                         <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
@@ -23,7 +21,7 @@
                 </form>
             </div>
 
-            <a href=""><button type="button" class="layui-btn">添加</button></a>
+            <a href="{{url('users/create')}}"><button type="button" class="layui-btn">添加</button></a>
 
             <div class="layui-col-md12">
                 <div class="layui-card">
@@ -31,6 +29,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
 <script type="text/html" id="barDemo">
@@ -78,14 +77,26 @@
             table.on('tool(test)', function(obj){
                 var data = obj.data;
                 console.log(obj);
-                if(obj.event === 'detail'){
-                    layer.msg('ID：'+ data.id + ' 的查看操作');
-                } else if(obj.event === 'del'){
+                if(obj.event === 'del'){
                     layer.confirm('真的删除行么', function(index){
-                        obj.del();
-                        layer.close(index);
+                        $.ajax({
+                            url:"users/"+data.id,
+                            type:"DELETE",
+                            contentType:"application/json",//设置请求参数类型为json字符串
+                            data:{user_id:data.id},//将json对象转换成json字符串发送
+                            dataType:"json",
+                            success:function(result){
+                                if(result.code == 200){
+                                    obj.del();
+                                    layer.close(index);
+                                }else{
+                                    layer.msg('删除失败，请重试')
+                                }
+                            },
+                        });
                     });
-                } else if(obj.event === 'edit') {
+                }
+                if(obj.event === 'edit') {
                     console.log(data);
                     xadmin.open('编辑', "users/"+data.id+"/edit");
                 }
@@ -93,7 +104,8 @@
 
             var $ = layui.$, active = {
                 reload: function(){
-                    var demoReload = $('#demoReload');
+                    var user_id = $('#user_id');
+                    var mobile = $('#mobile');
 
                     //执行重载
                     table.reload('testReload', {
@@ -102,7 +114,8 @@
                         }
                         ,where: {
                             key: {
-                                id: demoReload.val()
+                                user_id: user_id.val(),
+                                mobile: mobile.val()
                             }
                         }
                     });

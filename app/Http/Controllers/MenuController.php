@@ -31,9 +31,10 @@ class MenuController extends BaiscController
      */
     public function create()
     {
-        dd($this->service->getMenuRoot());
         return view('menu/menu_add');
     }
+
+
 
     public function show()
     {
@@ -51,7 +52,7 @@ class MenuController extends BaiscController
         $param = $request->all('data');
         $data = $param['data'];
         unset($data['pass']);
-        $this->service->userCreate($data);
+        $this->service->menuCreate($data);
         return $this->success('创建成功');
     }
 
