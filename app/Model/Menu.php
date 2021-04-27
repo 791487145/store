@@ -64,4 +64,5 @@ class Menu extends Model
         '_rgt',
         'parent_id'
     ];
+
 }

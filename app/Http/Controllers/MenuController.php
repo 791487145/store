@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MenuRequest;
 use App\Http\Requests\UsersRequest;
 use App\Services\MenuServices;
 use Illuminate\Http\Request;
@@ -42,16 +43,14 @@ class MenuController extends BaiscController
     }
 
     /**
-     * 用户存储
-     * @param Request $request
-     * @param UsersRequest $usersRequest
+     * 菜单创建
+     * @param MenuRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(UsersRequest $request)
+    public function store(MenuRequest $request)
     {
         $param = $request->all('data');
         $data = $param['data'];
-        unset($data['pass']);
         $this->service->menuCreate($data);
         return $this->success('创建成功');
     }
