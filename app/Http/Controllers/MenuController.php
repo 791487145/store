@@ -57,7 +57,8 @@ class MenuController extends BaiscController
 
     public function menuLists(Request $request)
     {
-        return $this->success_data($this->service->getMenuRoot()->toArray());
+        [$menus,$count] = $this->service->getMenus();
+        return $this->success_page($menus,$count);
     }
 
 }

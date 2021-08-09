@@ -23,9 +23,6 @@ class UsersController extends BaiscController
      */
     public function index(Request $request)
     {
-        if($request->is('ajax')){
-
-        }
         return view('users/user_list');
     }
 

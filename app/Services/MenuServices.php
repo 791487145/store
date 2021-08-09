@@ -10,12 +10,18 @@ use phpDocumentor\Reflection\Types\True_;
 class MenuServices extends BaseServices
 {
     /**
-     * 获取根菜单
+     * 获取菜单
      * @return mixed
      */
-    public function getMenuRoot()
+    public function getMenus()
     {
-        return Menu::whereIsRoot()->get();
+        $menus = Menu::get();
+        $count = $menus->count();
+        if($menus->isNotEmpty()){
+            $menus = $menus->toArray();
+        }
+
+        return [$menus,$count];
     }
     /**
      * 菜单创建

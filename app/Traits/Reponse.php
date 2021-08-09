@@ -35,7 +35,7 @@ trait Reponse
     }
 
     /**
-     * 成功时带参数返回值（分页）
+     * 成功时带参数返回值（分页或树）
      * @param array $data
      * @param int $count
      * @return \Illuminate\Http\JsonResponse

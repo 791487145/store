@@ -21,6 +21,17 @@
 <body>
     @yield('contend')
 
+    <script>
+        layui.config({
+            base: './layui/' //指定 layuiAdmin 项目路径，本地开发用 src，线上用 dist
+            // ,version: '1.6.0',
+            ,version: new Date().getTime()
+        }).extend({
+            treeTable: 'extends/treeTable',
+        });
+    </script>
+
     @yield('javascript')
+
 </body>
 </html>
