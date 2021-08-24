@@ -23,6 +23,15 @@ class MenuServices extends BaseServices
 
         return [$menus,$count];
     }
+
+    public function getMenuTree()
+    {
+        $menu_tree = Menu::get()->toTree();
+        if($menu_tree->isEmpty()){
+            return [];
+        }
+    }
+
     /**
      * 菜单创建
      * @param $data
@@ -41,7 +50,6 @@ class MenuServices extends BaseServices
             dd($exception->getMessage());
         }
         return true;
-
     }
 
 

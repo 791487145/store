@@ -32,6 +32,7 @@ class MenuController extends BaiscController
      */
     public function create()
     {
+        $this->service->getMenuTree();
         return view('menu/menu_add');
     }
 
