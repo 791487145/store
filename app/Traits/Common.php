@@ -9,20 +9,21 @@
 namespace App\Traits;
 
 
+use Illuminate\Support\Facades\Redis;
+
 trait Common
 {
 
-    public function traverse($nodes)
+    /**
+     * 生成防止表单重复提交凭证
+     */
+    public function createToken()
     {
-        $traverse = function ($categories, $prefix = '-') use (&$traverse) {
-            foreach ($categories as $category) {
-                echo PHP_EOL.$prefix.' '.$category->name;
-
-                $traverse($category->children, $prefix.'-');
-            }
-        };
-        $traverse($nodes);
+        $token = md5(env('TOKEN_KEY').microtime());
+        //Redis::sadd('token',$token);
+        return $token;
     }
+
 
     /**
      * 一维数据数组生成数据树

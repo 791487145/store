@@ -13,6 +13,7 @@ trait Reponse
 {
     public $code = 0;
     public $error = 201;
+    public $form_code = 1;
 
     /**
      * 成功时返回值

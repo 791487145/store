@@ -4,11 +4,14 @@ namespace App\Services;
 
 use App\Model\Menu;
 use App\Model\User;
+use App\Traits\Common;
 use Illuminate\Support\Facades\Crypt;
 use phpDocumentor\Reflection\Types\True_;
 
 class MenuServices extends BaseServices
 {
+    use Common;
+
     /**
      * 获取菜单
      * @return mixed
@@ -24,12 +27,17 @@ class MenuServices extends BaseServices
         return [$menus,$count];
     }
 
+    /**
+     * 获取菜单树
+     * @return array
+     */
     public function getMenuTree()
     {
-        $menu_tree = Menu::get()->toTree();
+        $menu_tree = Menu::get();
         if($menu_tree->isEmpty()){
             return [];
         }
+        return $this->arr2table($menu_tree->toArray());
     }
 
     /**
@@ -41,8 +49,7 @@ class MenuServices extends BaseServices
     {
         try{
             if($data['parent_id'] == 0){
-                $menu = new Menu($data);
-                $menu->saveAsRoot();
+                (new Menu($data))->saveAsRoot();
             }else{
                 Menu::create($data,Menu::whereId($data['parent_id'])->first());
             }

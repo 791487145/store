@@ -24,7 +24,16 @@ Route::get('/welcome','IndexController@welcome');
 Route::resource('users', 'UsersController');
 Route::get('user/list','UsersController@userLists');
 
-Route::resource('menus', 'MenuController');
-Route::get('menu/list','MenuController@menuLists');
+//菜单
+Route::get('menus','MenuController@index');//菜单页
+Route::get('menu/list','MenuController@menuLists');//菜单列表
+Route::get('menus/create','MenuController@create');//添加页
 
-Route::resource('email', 'UsersController');
+
+Route::middleware('form.token')->group(function() {
+    Route::post('menus','MenuController@store');//菜单存储
+});
+
+Route::get('create/formtoken','CommonController@formToken');//菜单页
+
+

@@ -7,6 +7,7 @@ use App\Http\Requests\UsersRequest;
 use App\Services\MenuServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Redis;
 
 class MenuController extends BaiscController
 {
@@ -32,8 +33,8 @@ class MenuController extends BaiscController
      */
     public function create()
     {
-        $this->service->getMenuTree();
-        return view('menu/menu_add');
+        $data = $this->service->getMenuTree();
+        return view('menu/menu_add',['data'=>$data]);
     }
 
 
