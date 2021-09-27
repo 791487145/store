@@ -8,6 +8,7 @@ class IndexController extends BaiscController
 {
     public function index()
     {
+        //dd(auth()->id());
         return view('index/index');
     }
 

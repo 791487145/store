@@ -28,6 +28,7 @@
             ,version: new Date().getTime()
         }).extend({
             treeTable: 'extends/treeTable',
+            //hxNav: 'extends/hxNav',
         });
     </script>
 

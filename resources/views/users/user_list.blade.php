@@ -35,6 +35,7 @@
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="role">分配角色</a>
 </script>
 @endsection
 @section('javascript')
@@ -95,6 +96,11 @@
                             },
                         });
                     });
+                    return false;
+                }
+                if(obj.event === 'role') {
+                    console.log(data);
+                    xadmin.open('分配角色', "user/"+data.id+"/role");
                 }
                 if(obj.event === 'edit') {
                     console.log(data);

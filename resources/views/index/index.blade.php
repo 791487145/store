@@ -37,4 +37,26 @@
 
     </body>
 
+    <script>
+
+        layui.use(['jquery', 'form'], function(){
+            $ = layui.jquery;
+            var form = layui.form;
+            //var hxNav = layui.hxNav;
+
+            /*$.ajax({
+                url : '{url('menu/list')}}',
+                dataType : 'json',
+                success : function(result) {
+                    //console.log(result)
+                    if(result.code == 0){
+                        var menu_list = result.data
+                    }
+
+                }
+            });*/
+        });
+
+    </script>
+
 </html>

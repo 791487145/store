@@ -45,6 +45,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Menu whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Menu whereUrl($value)
  * @mixin \Eloquent
+ * @property int $is_menu 是否菜单1菜单2功能
+ * @property int|null $is_show 是否展示1是
+ * @method static \Illuminate\Database\Eloquent\Builder|Menu whereIsMenu($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Menu whereIsShow($value)
  */
 class Menu extends Model
 {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Lib\Coding;
 use App\Exceptions\InvalidRequestException;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -53,6 +54,6 @@ class MenuRequest extends FormRequest
     public function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
     {
         $error = $validator->errors()->first();
-        throw new InvalidRequestException($error);
+        throw new InvalidRequestException($error,Coding::HTTP_ERROR);
     }
 }

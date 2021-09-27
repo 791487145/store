@@ -39,9 +39,11 @@ class MenuController extends BaiscController
 
 
 
-    public function show()
+    public function show($id)
     {
-        dd(342);
+        $tree = $this->service->getMenuTree();
+        $menu = $this->service->getOneMenu($id);
+        return view('menu/menu_edit',['tree'=>$tree,'menu'=>$menu]);
     }
 
     /**
@@ -57,10 +59,49 @@ class MenuController extends BaiscController
         return $this->success('创建成功');
     }
 
+    /**
+     * 菜单数据列表
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function menuLists(Request $request)
     {
         [$menus,$count] = $this->service->getMenus();
         return $this->success_page($menus,$count);
+    }
+
+    /**
+     * 菜单修改
+     * @param MenuRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \App\Exceptions\InvalidRequestException
+     */
+    public function update(Request $request)
+    {
+        $param = $request->all('data');
+        $data = $param['data'];
+        $this->service->menuUpdate($data);
+        return $this->success('修改成功');
+    }
+
+    /**
+     * 菜单删除
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \App\Exceptions\InvalidRequestException
+     */
+    public function delete($id)
+    {
+        if(!is_numeric($id)){
+            return $this->fail('参数有误');
+        }
+        $this->service->deleteMenu($id);
+        return $this->success('删除成功');
+    }
+
+    public function menuUserList()
+    {
+
     }
 
 }

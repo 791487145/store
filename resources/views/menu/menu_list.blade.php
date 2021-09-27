@@ -56,6 +56,38 @@
                 ]
             });
 
+            //监听工具条
+            treeTable.on('tool(menu_list)', function(obj){
+                var data = obj.data;
+                console.log(obj);
+                if(obj.event === 'del'){
+                    layer.confirm('真的要删除么', function(index){
+                        $.ajax({
+                            url:"menu/"+data.id+"/delete",
+                            type:"post",
+                            contentType:"application/json",//设置请求参数类型为json字符串
+                            data:{id:data.id},//将json对象转换成json字符串发送
+                            dataType:"json",
+                            success:function(result){
+                                if(result.code == 0){
+                                    obj.del();
+                                    layer.close(index);
+                                }else{
+                                    layer.msg(result.msg)
+                                }
+                            },
+                        });
+                    });
+                    return false;
+                }
+                if(obj.event === 'edit') {
+                    console.log(data);
+                    xadmin.open('编辑', "menu/"+data.id+"/show");
+                    return false;
+                }
+            });
+
+
 
         });
 

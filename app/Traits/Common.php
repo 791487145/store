@@ -10,6 +10,7 @@ namespace App\Traits;
 
 
 use Illuminate\Support\Facades\Redis;
+use App\Lib\Coding;
 
 trait Common
 {
@@ -20,7 +21,7 @@ trait Common
     public function createToken()
     {
         $token = md5(env('TOKEN_KEY').microtime());
-        //Redis::sadd('token',$token);
+        Redis::sadd(Coding::REDIS_FORM_TOKEN,$token);
         return $token;
     }
 
@@ -76,5 +77,81 @@ trait Common
             }
         }
         return $tree;
+    }
+
+    /**
+     * 序列化数据
+     * @param array $res
+     * @param array $fixed
+     * @return array
+     */
+    public function standardizedToData(array $res,array $fixed)
+    {
+        $datas = [];
+        foreach ($res as $value){
+            $data = [
+                'id' => $value['id'],
+                'title' => $value['name'],
+                'children' => [],
+                'spread' => true
+            ];
+            if(!empty($value['children'])){
+
+                $children = [];
+                foreach ($value['children'] as $val){
+                    $child = [
+                        'id' => $val['id'],
+                        'title' => $val['name'],
+                        'children' => [],
+                        'spread' => true
+                    ];
+                    if(!empty($val['children'])){
+
+                        $result = [];
+                        foreach ($val['children'] as $v){
+
+                            $res = [
+                                'id' => $v['id'],
+                                'title' => $v['name'],
+                            ];
+                            if(in_array($val['id'],$fixed)){
+                                $res['checked'] = true;
+                            }
+                            $result[] = $res;
+                        }
+                        $child['children'] = $result;
+
+                    }elseif(in_array($val['id'],$fixed)){
+
+                        $child['checked'] = true;
+                    }
+
+                    $children[] = $child;
+                }
+
+                $data['children'] = $children;
+
+            }elseif (in_array($value['id'],$fixed)){
+
+                $data['checked'] = true;
+
+            }
+
+            $datas[] = $data;
+        }
+
+        return $data;
+    }
+
+    /**
+     * openssl解密
+     * @param $data
+     * @return mixed
+     */
+    public function openssl($data)
+    {
+        $private_pem = file_get_contents(public_path('private_pem/rsa_private_key.pem'));
+        openssl_private_decrypt(base64_decode($data),$res,$private_pem);
+        return $res;
     }
 }

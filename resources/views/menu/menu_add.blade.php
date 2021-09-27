@@ -62,7 +62,7 @@
 
             <div class="layui-form-item">
                 <label for="L_repass" class="layui-form-label"></label>
-                <button class="layui-btn" lay-filter="add" lay-submit="">增加</button>
+                <button class="layui-btn button-menu-form" lay-filter="add" lay-submit="">增加</button>
             </div>
         </form>
 
@@ -77,23 +77,37 @@
                 layer = layui.layer;
 
             let form_token = '';
+            let DISABLED = 'layui-btn-disabled';
             token();
 
             //监听提交
             form.on('submit(add)', function(data) {
 
+                but_sub_ad();
+
                 $.post("{{url('menus')}}",{data:data.field,_token:"{{csrf_token()}}",form_token:form_token},function (res) {
 
-                    token();
-                    /*if(res.code == 201){
+                    console.log(res)
+                    if(res.code == 1){
                         layer.msg(res.msg, {icon: 5});
+                        return false;
+                    }
+                    if(res.code == 2){
+                        layer.msg(res.msg, {icon: 5});
+                        token();
+                        return false;
+                    }
+                    if(res.code == 201){
+                        layer.msg(res.msg, {icon: 5});
+                        token();
+                        but_sub_rm();
+                        return false;
                     }else{
                         layer.msg('添加成功');
                         xadmin.close();
                         xadmin.father_reload();
-                    }*/
-                })
-
+                    }
+                });
 
                 return false;
             });
@@ -103,8 +117,18 @@
             {
                 $.get("{{url('create/formtoken')}}",{},function (res) {
                     form_token = res.data.token;
-                    $('#form_token').val(form_token);
                 })
+            }
+
+            //submit失效
+            function but_sub_ad() {
+                $('.button-menu-form').addClass(DISABLED);
+                $('.button-menu-form').attr('disabled','disabled')
+            }
+            //submit生效
+            function but_sub_rm() {
+                $('.button-menu-form').removeClass(DISABLED);
+                $('.button-menu-form').removeAttr('disabled');
             }
 
         });

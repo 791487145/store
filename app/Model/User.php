@@ -7,6 +7,7 @@
 namespace App\Model;
 
 use Carbon\Carbon;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -35,9 +36,17 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Permission[] $permissions
+ * @property-read int|null $permissions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Role[] $roles
+ * @property-read int|null $roles_count
+ * @method static \Illuminate\Database\Eloquent\Builder|User permission($permissions)
+ * @method static \Illuminate\Database\Eloquent\Builder|User role($roles, $guard = null)
  */
 class User extends Model
 {
+    use HasRoles;
+
 	protected $table = 'users';
 
 	protected $dates = [
@@ -62,4 +71,9 @@ class User extends Model
 		'password',
 		'remember_token'
 	];
+
+	public function test()
+    {
+        return $this->hasOne(Test::class,'id','user_id');
+    }
 }

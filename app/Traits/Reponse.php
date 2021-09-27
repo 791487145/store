@@ -8,12 +8,12 @@
 
 namespace App\Traits;
 
+use App\Lib\Coding;
 
 trait Reponse
 {
-    public $code = 0;
-    public $error = 201;
-    public $form_code = 1;
+    public $code = Coding::HTTP_SUCCESS;
+    public $error = Coding::HTTP_ERROR;
 
     /**
      * 成功时返回值
@@ -32,7 +32,7 @@ trait Reponse
      */
     public  function success_data(array $data)
     {
-        return response()->json(['msg' => '操作成功','code'=>$this->code,'data'=>$data]);
+        return response()->json(['msg' => Coding::MSG_SUCCESS,'code'=>$this->code,'data'=>$data]);
     }
 
     /**
@@ -43,7 +43,7 @@ trait Reponse
      */
     public  function success_page(array $data,int $count)
     {
-        return response()->json(['msg' => '操作成功','code'=>$this->code,'data'=>$data,'count'=>$count]);
+        return response()->json(['msg' => Coding::MSG_SUCCESS,'code'=>$this->code,'data'=>$data,'count'=>$count]);
     }
 
     /**
